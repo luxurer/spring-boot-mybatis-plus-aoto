@@ -1,6 +1,6 @@
 package com.example.mybatisplus.service;
 
-import com.example.mybatisplus.entity.User;
+import com.example.mybatisplus.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author huzhiting
- * @since 2019-06-03
+ * @since 2020-01-05
  */
-public interface IUserService extends IService<User> {
+public interface IRoleService extends IService<Role> {
 
 }
