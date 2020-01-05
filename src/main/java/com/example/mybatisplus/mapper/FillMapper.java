@@ -1,6 +1,6 @@
 package com.example.mybatisplus.mapper;
 
-import com.example.mybatisplus.entity.Role;
+import com.example.mybatisplus.entity.Fill;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author huzhiting
  * @since 2020-01-05
  */
-public interface RoleMapper extends BaseMapper<Role> {
+public interface FillMapper extends BaseMapper<Fill> {
 
 }

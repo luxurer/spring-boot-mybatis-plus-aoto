@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-01-05
  */
 @RestController
-@RequestMapping("/role")
-public class RoleController {
+@RequestMapping("/fill")
+public class FillController {
 
 }
