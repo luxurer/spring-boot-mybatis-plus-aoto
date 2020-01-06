@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.FillMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.entity.Fill">
+        <id column="fill_id" property="fillId" />
+        <result column="subject" property="subject" />
+        <result column="content" property="content" />
+        <result column="difficulty_coe" property="difficultyCoe" />
+        <result column="answer" property="answer" />
+        <result column="chapter" property="chapter" />
+        <result column="repeat_flag" property="repeatFlag" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        fill_id, subject, content, difficulty_coe, answer, chapter, repeat_flag
+    </sql>
+
+</mapper>

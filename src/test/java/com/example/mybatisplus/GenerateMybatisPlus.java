@@ -57,7 +57,7 @@ public class GenerateMybatisPlus {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://139.196.92.64:3306/j2ee?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8&useSSL=false&serverTimezone=UTC");
+        dsc.setUrl("jdbc:mysql://139.196.92.64:3306/db_ltt?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8&useSSL=false&serverTimezone=UTC");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
