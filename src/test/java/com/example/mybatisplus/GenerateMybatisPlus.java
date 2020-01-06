@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class GenerateMybatisPlus {
     /**
      * <p>
-     * 读取控制台内容
+     * 读取控制台内容我
      * </p>
      */
     public static String scanner(String tip) {
