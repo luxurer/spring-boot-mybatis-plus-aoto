@@ -132,7 +132,7 @@ public class GenerateMybatisPlus {
         strategy.setInclude(scanner("表名").split(","));
         strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix( "t_eidm_");
+        strategy.setTablePrefix( "t_");
         strategy.setEntityTableFieldAnnotationEnable(true);
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
