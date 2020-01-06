@@ -130,7 +130,7 @@ public class GenerateMybatisPlus {
         strategy.setRestControllerStyle(true);
         //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         strategy.setInclude(scanner("表名").split(","));
-        strategy.setSuperEntityColumns("id");
+        //strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix( "t_");
         strategy.setEntityTableFieldAnnotationEnable(true);
