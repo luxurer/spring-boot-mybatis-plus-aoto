@@ -1,6 +1,6 @@
 package com.ltt.demo.mapper;
 
-import com.ltt.demo.entity.Property;
+import com.ltt.demo.entity.Student;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,9 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author liuwei
  * @since 2020-01-06
  */
-public interface PropertyMapper extends BaseMapper<Property> {
-
-
-
+public interface StudentMapper extends BaseMapper<Student> {
 
 }
