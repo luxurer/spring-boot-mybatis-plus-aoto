@@ -1,5 +1,6 @@
 package com.ltt.demo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -30,7 +31,7 @@ public class Property extends Model<Property> {
 	/**
 	 * 主键
 	 */
-	@TableId("id")
+	@TableId(value = "id",type = IdType.UUID)
 	private String id;
 
 	/**
