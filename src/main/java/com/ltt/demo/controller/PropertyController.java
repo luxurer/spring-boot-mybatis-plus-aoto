@@ -38,8 +38,12 @@ public class PropertyController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public Result add(@RequestBody Property property) {
-		propertyService.add(property);
-		return Result.successResult();
+		try {
+			propertyService.add(property);
+			return Result.successResult();
+		} catch (Exception e) {
+			return Result.failResult(e.getMessage());
+		}
 	}
 
 
