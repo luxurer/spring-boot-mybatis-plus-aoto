@@ -1,0 +1,88 @@
+###
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+#----------------------------------------property------------------------------------------------###
+###
+GET http://localhost:8085/eidm/admin/property/queryProperty?pageNo=1&pageSize=10&belong=1
+Accept: application/json
+
+###--------------------delete--------------
+GET http://localhost:8085/eidm/admin/property/delete?id=5ecd02a1ccab65e6a7e8bf4fc259f670
+Accept: application/json
+
+###--------------add---------------------
+POST http://localhost:8085/eidm/admin/property/add
+Content-Type: application/json
+
+{
+  "name": "上市挂牌",
+  "belong": 1,
+  "isSearch": 1,
+  "isSearchKey":1,
+  "type":1,
+  "orderNum":5
+}
+
+###--------------edit---------------------
+POST http://localhost:8085/eidm/admin/property/edit
+Content-Type: application/json
+
+{
+
+  "id": "dc4aa3cfbcebefd28f5c3fd7dc63ff8e",
+   "name": "联系电话",
+   "orderNum": 5,
+  "isSearch": 1,
+  "isSearchKey":1
+}
+
+###
+GET http://localhost:8085/eidm/admin/property/queryDetail?id=11b6f22704f40170f0127de55d12819e
+Accept: application/json
+
+
+###------------------------------------------industry-----------------------------------------------------###
+#--------------add---------------------
+POST http://localhost:8085/eidm/admin/industry/add
+Content-Type: application/json
+
+{
+  "name": "制造业",
+  "belong": 1
+}
+
+###-----------------------delete------------------
+GET http://localhost:8085/eidm/admin/industry/delete?id=f40399d38104155d69ec8cbc8acba642
+Accept: application/json
+
+###--------------queryList---------------------
+GET http://localhost:8085/eidm/admin/industry/queryDetail?id=1c9cf2910bc83690c0e3d1bf14e8cf53
+Accept: application/json
+
+###--------------queryList---------------------
+GET http://localhost:8085/eidm/admin/industry/queryList?pageNo=1&pageSize=10&belong=1
+Accept: application/json
+
+###--------------edit---------------------
+POST http://localhost:8085/eidm/admin/industry/edit
+Content-Type: application/json
+
+{
+  "id": "1c9cf2910bc83690c0e3d1bf14e8cf53",
+  "name": "制造2业"
+}
+###
+
+POST http://localhost:8085/eidm/admin/enterprisOrOrgan/queryList
+Content-Type: application/json
+
+{
+  "pageNo": 1,
+  "pageSize": 10,
+  "belong": 1
+}
+###
