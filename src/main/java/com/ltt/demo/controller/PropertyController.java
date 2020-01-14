@@ -37,7 +37,7 @@ public class PropertyController {
 	 *
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public Result add(@RequestBody Property property) {
+	public Result add(@RequestBody @Validated Property property) {
 		try {
 			propertyService.add(property);
 			return Result.successResult();
@@ -45,6 +45,17 @@ public class PropertyController {
 			return Result.failResult(e.getMessage());
 		}
 	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public Result add(String id) {
+		try {
+			propertyService.delete(id);
+			return Result.successResult();
+		} catch (Exception e) {
+			return Result.failResult(e.getMessage());
+		}
+	}
+
 
 
 }

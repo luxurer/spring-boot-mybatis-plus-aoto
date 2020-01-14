@@ -12,6 +12,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * <p>
@@ -38,6 +41,7 @@ public class Property extends Model<Property> {
 	 * 属性名称
 	 */
 	@TableField("name")
+	@NotNull
 	private String name;
 
 	/**
@@ -50,12 +54,14 @@ public class Property extends Model<Property> {
 	 * 1 文本2数字3日期
 	 */
 	@TableField("type")
+	@NotNull
 	private Integer type;
 
 	/**
 	 * 是否可编辑：0-否；1-是
 	 */
 	@TableField("can_edit")
+	@NotNull
 	private Integer canEdit;
 
 	/**
@@ -74,79 +80,6 @@ public class Property extends Model<Property> {
 	 * 所属集团
 	 */
 	@TableField("company_id")
+	@NotEmpty
 	private String companyId;
-
-
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
-
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public Integer getType() {
-		return type;
-	}
-
-	public void setType(Integer type) {
-		this.type = type;
-	}
-
-	public Integer getCanEdit() {
-		return canEdit;
-	}
-
-	public void setCanEdit(Integer canEdit) {
-		this.canEdit = canEdit;
-	}
-
-	public Integer getOrderNum() {
-		return orderNum;
-	}
-
-	public void setOrderNum(Integer orderNum) {
-		this.orderNum = orderNum;
-	}
-
-	public Long getLastUpdateTimestamp() {
-		return lastUpdateTimestamp;
-	}
-
-	public void setLastUpdateTimestamp(Long lastUpdateTimestamp) {
-		this.lastUpdateTimestamp = lastUpdateTimestamp;
-	}
-
-	public String getCompanyId() {
-		return companyId;
-	}
-
-	public void setCompanyId(String companyId) {
-		this.companyId = companyId;
-	}
 }

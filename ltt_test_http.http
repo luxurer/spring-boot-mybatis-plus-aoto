@@ -11,7 +11,7 @@ GET http://localhost:8080/admin/property/queryProperty?pageNo=1&pageSize=10&belo
 Accept: application/json
 
 ###--------------------delete--------------
-GET http://localhost:8080/admin/property/delete?id=4c7b2cd411982974a8d2bc597846c3d0
+GET http://localhost:8080/admin/property/delete?id=5ecd02a1ccab65e6a7e8bf4fc259f670
 Accept: application/json
 
 ###--------------add---------------------
@@ -19,11 +19,12 @@ POST http://localhost:8080/admin/property/add
 Content-Type: application/json
 
 {
-  "name": "address",
-  "canEdit": 1,
-  "orderNum":999,
-  "companyId":"",
-  "type": 0
+  "name": "lw",
+  "belong": 1,
+  "isSearch": 1,
+  "isSearchKey":1,
+  "type":1,
+  "orderNum":5
 }
 
 ###--------------edit---------------------
