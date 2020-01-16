@@ -42,7 +42,6 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
      */
     @Override
     public void add(Property property) {
-
         String companyId = property.getCompanyId();
         // TODO 长度判断可以使用@Length注解
         if (property.getName().length() > 20) {
