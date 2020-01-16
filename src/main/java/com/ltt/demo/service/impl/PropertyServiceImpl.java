@@ -1,5 +1,7 @@
 package com.ltt.demo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ltt.demo.common.common.Const;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import static com.ltt.demo.common.common.Const.COMMON_COMPANY_ID;
 
+import java.util.List;
+import java.sql.Wrapper;
 /**
  * <p>
  * 服务实现类
@@ -71,6 +75,33 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
             propertyMapper.deleteById(id);
         } else {
             throw new ServiceException("指标不存在，删除失败!");
+        }
+    }
+    @Override
+    public List<Property> search(String name) {
+        if (!ObjectUtils.isEmpty(name)) {
+            QueryWrapper<Property> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("name", name);
+            return  propertyMapper.selectList( queryWrapper);
+
+        } else {
+            throw new ServiceException("指标不存在，查询失败!");
+        }
+    }
+    @Override
+    public void modify(Property property) {
+        if (!ObjectUtils.isEmpty(property)) {
+            UpdateWrapper<Property> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("name", property.getName());
+            /*updateWrapper.eq("can_edit", property.getCanEdit());
+            updateWrapper.eq("code", property.getCode());
+            updateWrapper.eq("company_id", property.getCompanyId());
+            updateWrapper.eq("last_update_timestamp", property.getLastUpdateTimestamp());
+            updateWrapper.eq("type", property.getType());
+            updateWrapper.eq("order_num", property.getOrderNum());*/
+            propertyMapper.update(property,updateWrapper);
+        } else {
+            throw new ServiceException("指标不存在，修改失败!");
         }
     }
 }

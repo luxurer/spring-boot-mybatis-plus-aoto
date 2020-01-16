@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
  *  前端控制器1
@@ -56,6 +59,24 @@ public class PropertyController {
 		}
 	}
 
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public List<Property> search(String name) {
+		try {
+			return propertyService.search(name);
+		} catch (Exception e) {
+			List<Property> list = new ArrayList<Property>();
+			return list;
+		}
+	}
 
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public Result modify(@RequestBody Property property) {
+		try {
+			propertyService.modify(property);
+			return Result.successResult();
+		} catch (Exception e) {
+			return Result.failResult(e.getMessage());
+		}
+	}
 
 }

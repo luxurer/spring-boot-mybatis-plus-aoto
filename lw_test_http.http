@@ -14,6 +14,22 @@ Accept: application/json
 GET http://localhost:8080/admin/property/delete?id=4c7b2cd411982974a8d2bc597846c3d0
 Accept: application/json
 
+###--------------------search-------------
+GET http://localhost:8080/admin/property/search?name=address
+Accept: application/json
+\
+###--------------------modify-------------
+POST http://localhost:8080/admin/property/modify
+Content-Type: application/json
+
+{
+  "name": "address",
+  "canEdit": 1,
+  "code": "1",
+  "orderNum":999,
+  "companyId":"1",
+  "type": 0
+}
 ###--------------add---------------------
 POST http://localhost:8080/admin/property/add
 Content-Type: application/json
