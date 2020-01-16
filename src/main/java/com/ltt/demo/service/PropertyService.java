@@ -15,7 +15,7 @@ public interface PropertyService extends IService<Property> {
 
 	void add(Property property);
 	void delete(String  id);
-	List<Property> search(String  name);
-	void modify(Property property);
+	List<Property> detail(String  name);
+	void edit(Property property);
 
 }

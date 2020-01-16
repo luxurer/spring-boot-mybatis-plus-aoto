@@ -77,7 +77,7 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
         }
     }
     @Override
-    public List<Property> search(String name) {
+    public List<Property> detail(String name) {
         if (!ObjectUtils.isEmpty(name)) {
             QueryWrapper<Property> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("name", name);
@@ -88,7 +88,7 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
         }
     }
     @Override
-    public void modify(Property property) {
+    public void edit(Property property) {
         if (!ObjectUtils.isEmpty(property)) {
             UpdateWrapper<Property> updateWrapper = new UpdateWrapper<>();
             updateWrapper.eq("name", property.getName());

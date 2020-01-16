@@ -59,20 +59,20 @@ public class PropertyController {
 		}
 	}
 
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public List<Property> search(String name) {
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public List<Property> detail(String name) {
 		try {
-			return propertyService.search(name);
+			return propertyService.detail(name);
 		} catch (Exception e) {
 			List<Property> list = new ArrayList<Property>();
 			return list;
 		}
 	}
 
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public Result modify(@RequestBody Property property) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public Result edit(@RequestBody Property property) {
 		try {
-			propertyService.modify(property);
+			propertyService.edit(property);
 			return Result.successResult();
 		} catch (Exception e) {
 			return Result.failResult(e.getMessage());
