@@ -2,8 +2,10 @@ package com.ltt.demo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ltt.demo.common.common.Const;
 import com.ltt.demo.common.common.exception.ServiceException;
 import com.ltt.demo.entity.Property;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Service;
 import static com.ltt.demo.common.common.Const.COMMON_COMPANY_ID;
 
 import java.util.List;
-import java.sql.Wrapper;
+
 /**
  * <p>
  * 服务实现类
@@ -99,9 +101,12 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
     }
 
     @Override
-    public List<Property> searchAll() {
-         QueryWrapper<Property> queryWrapper = new QueryWrapper<>();
-         return  propertyMapper.selectList( queryWrapper);
+    public  IPage<Property>  searchAll(int pageNo,int pageSize) {
+        Integer count = propertyMapper.selectCount(new QueryWrapper<Property>());
+
+              IPage<Property> propertytIPage = new Page<Property>(pageNo, pageSize,count);
+              IPage<Property>  propertyList = propertyMapper.selectPage(propertytIPage,new QueryWrapper<Property>());
+              return propertyList;
         }
 
 }

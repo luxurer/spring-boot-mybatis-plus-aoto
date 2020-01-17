@@ -15,15 +15,15 @@ GET http://localhost:8080/admin/property/delete?id=4c7b2cd411982974a8d2bc597846c
 Accept: application/json
 
 ###--------------------search-------------
-GET http://localhost:8080/admin/property/search?name=address
+GET http://localhost:8080/admin/property/detail?name=address
 Accept: application/json
 
 ###--------------------searchAll-------------
-GET http://localhost:8080/admin/property/searchAll
+GET http://localhost:8080/admin/property/searchAll?pageNo=1&pageSize=10
 Accept: application/json
 
 ###--------------------modify-------------
-POST http://localhost:8080/admin/property/modify
+POST http://localhost:8080/admin/property/edit
 Content-Type: application/json
 
 {

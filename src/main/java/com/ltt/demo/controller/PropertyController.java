@@ -1,6 +1,7 @@
 package com.ltt.demo.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ltt.demo.common.common.bean.Result;
 import com.ltt.demo.entity.Property;
 import com.ltt.demo.service.PropertyService;
@@ -68,14 +69,10 @@ public class PropertyController {
 			return list;
 		}
 	}
+
 	@RequestMapping(value = "/searchAll", method = RequestMethod.GET)
-	public List<Property> searchAll() {
-		try {
-			return propertyService.searchAll();
-		} catch (Exception e) {
-			List<Property> list = new ArrayList<Property>();
-			return list;
-		}
+	public IPage<Property> searchAll(int pageNo, int pageSize) {
+			return propertyService.searchAll(pageNo,pageSize);
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
