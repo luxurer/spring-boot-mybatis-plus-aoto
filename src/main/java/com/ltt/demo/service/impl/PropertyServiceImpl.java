@@ -92,15 +92,16 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
         if (!ObjectUtils.isEmpty(property)) {
             UpdateWrapper<Property> updateWrapper = new UpdateWrapper<>();
             updateWrapper.eq("name", property.getName());
-            /*updateWrapper.eq("can_edit", property.getCanEdit());
-            updateWrapper.eq("code", property.getCode());
-            updateWrapper.eq("company_id", property.getCompanyId());
-            updateWrapper.eq("last_update_timestamp", property.getLastUpdateTimestamp());
-            updateWrapper.eq("type", property.getType());
-            updateWrapper.eq("order_num", property.getOrderNum());*/
             propertyMapper.update(property,updateWrapper);
         } else {
             throw new ServiceException("指标不存在，修改失败!");
         }
     }
+
+    @Override
+    public List<Property> searchAll() {
+         QueryWrapper<Property> queryWrapper = new QueryWrapper<>();
+         return  propertyMapper.selectList( queryWrapper);
+        }
+
 }

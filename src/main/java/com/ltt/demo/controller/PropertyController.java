@@ -68,6 +68,15 @@ public class PropertyController {
 			return list;
 		}
 	}
+	@RequestMapping(value = "/searchAll", method = RequestMethod.GET)
+	public List<Property> searchAll() {
+		try {
+			return propertyService.searchAll();
+		} catch (Exception e) {
+			List<Property> list = new ArrayList<Property>();
+			return list;
+		}
+	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public Result edit(@RequestBody Property property) {

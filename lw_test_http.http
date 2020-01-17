@@ -17,7 +17,11 @@ Accept: application/json
 ###--------------------search-------------
 GET http://localhost:8080/admin/property/search?name=address
 Accept: application/json
-\
+
+###--------------------searchAll-------------
+GET http://localhost:8080/admin/property/searchAll
+Accept: application/json
+
 ###--------------------modify-------------
 POST http://localhost:8080/admin/property/modify
 Content-Type: application/json
