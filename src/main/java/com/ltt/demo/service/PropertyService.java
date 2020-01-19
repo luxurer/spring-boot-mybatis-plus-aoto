@@ -18,5 +18,5 @@ public interface PropertyService extends IService<Property> {
 	void delete(String  id);
 	List<Property> detail(String  name);
 	void edit(Property property);
-	IPage<Property> searchAll(int pageNo,int pageSize);
+	List<Property> searchAll(int pageNo,int pageSize);
 }

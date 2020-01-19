@@ -71,8 +71,8 @@ public class PropertyController {
 	}
 
 	@RequestMapping(value = "/searchAll", method = RequestMethod.GET)
-	public IPage<Property> searchAll(int pageNo, int pageSize) {
-			return propertyService.searchAll(pageNo,pageSize);
+	public List<Property> searchAll(int pageNo, int pageSize) {
+		return propertyService.searchAll(pageNo,pageSize);
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)

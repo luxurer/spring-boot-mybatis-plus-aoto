@@ -101,12 +101,15 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
     }
 
     @Override
-    public  IPage<Property>  searchAll(int pageNo,int pageSize) {
+    public List<Property> searchAll(int pageNo, int pageSize) {
         Integer count = propertyMapper.selectCount(new QueryWrapper<Property>());
 
               IPage<Property> propertytIPage = new Page<Property>(pageNo, pageSize,count);
               IPage<Property>  propertyList = propertyMapper.selectPage(propertytIPage,new QueryWrapper<Property>());
-              return propertyList;
+              System.out.println("总页数"+propertyList.getPages());
+              System.out.println("总记录数"+propertyList.getTotal());
+              List<Property> list = propertyList.getRecords();
+              return list;
         }
 
 }
