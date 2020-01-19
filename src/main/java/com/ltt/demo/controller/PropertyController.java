@@ -2,6 +2,7 @@ package com.ltt.demo.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.ltt.demo.common.common.bean.PageBean;
 import com.ltt.demo.common.common.bean.Result;
 import com.ltt.demo.entity.Property;
 import com.ltt.demo.service.PropertyService;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.ltt.demo.common.common.bean.Result.successResult;
 
 /**
  * <p>
@@ -43,13 +46,13 @@ public class PropertyController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result add(@RequestBody @Validated Property property) {
         propertyService.add(property);
-        return Result.successResult();
+        return successResult();
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public Result add(String id) {
         propertyService.delete(id);
-        return Result.successResult();
+        return successResult();
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
@@ -58,15 +61,16 @@ public class PropertyController {
 
     }
 
-    @RequestMapping(value = "/searchAll", method = RequestMethod.GET)
-    public List<Property> searchAll(int pageNo, int pageSize) {
-        return propertyService.searchAll(pageNo, pageSize);
+    @RequestMapping(value = "/searchAll", method = RequestMethod.POST)
+    public Result searchAll(PageBean pageBean) {
+        List<Property> properties = propertyService.searchAll(pageBean.getPageNo(), pageBean.getPageSize());
+        return successResult(properties,pageBean);
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public Result edit(@RequestBody Property property) {
         propertyService.edit(property);
-        return Result.successResult();
+        return successResult();
     }
 
 }
