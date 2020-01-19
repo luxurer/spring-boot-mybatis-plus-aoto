@@ -42,7 +42,7 @@ Content-Type: application/json
   "name": "address",
   "canEdit": 1,
   "orderNum":999,
-  "companyId":"",
+  "companyId":"2343134242414121412412414124124141421412",
   "type": 0
 }
 

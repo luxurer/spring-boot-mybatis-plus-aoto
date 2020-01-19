@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器1
+ * 前端控制器1
  * </p>
  *
  * @author liuwei
@@ -28,61 +28,45 @@ import java.util.List;
 @RequestMapping("/admin/property")
 public class PropertyController {
 
-	@Autowired
-	private PropertyService propertyService;
+    @Autowired
+    private PropertyService propertyService;
 
-	/***
-	 * @MethodName add
-	 * @Description 新增指标
-	 * @Author 刘伟
-	 * @Date 2019/12/3 15:59
-	 * @Return com.xdja.eidm.common.bean.Result
-	 * @Exception
-	 *
-	 */
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public Result add(@RequestBody @Validated Property property) {
-		try {
-			propertyService.add(property);
-			return Result.successResult();
-		} catch (Exception e) {
-			return Result.failResult(e.getMessage());
-		}
-	}
+    /***
+     * @MethodName add
+     * @Description 新增指标
+     * @Author 刘伟
+     * @Date 2019/12/3 15:59
+     * @Return com.xdja.eidm.common.bean.Result
+     * @Exception
+     *
+     */
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public Result add(@RequestBody @Validated Property property) {
+        propertyService.add(property);
+        return Result.successResult();
+    }
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public Result add(String id) {
-		try {
-			propertyService.delete(id);
-			return Result.successResult();
-		} catch (Exception e) {
-			return Result.failResult(e.getMessage());
-		}
-	}
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public Result add(String id) {
+        propertyService.delete(id);
+        return Result.successResult();
+    }
 
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public List<Property> detail(String name) {
-		try {
-			return propertyService.detail(name);
-		} catch (Exception e) {
-			List<Property> list = new ArrayList<Property>();
-			return list;
-		}
-	}
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
+    public List<Property> detail(String name) {
+        return propertyService.detail(name);
 
-	@RequestMapping(value = "/searchAll", method = RequestMethod.GET)
-	public List<Property> searchAll(int pageNo, int pageSize) {
-		return propertyService.searchAll(pageNo,pageSize);
-	}
+    }
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public Result edit(@RequestBody Property property) {
-		try {
-			propertyService.edit(property);
-			return Result.successResult();
-		} catch (Exception e) {
-			return Result.failResult(e.getMessage());
-		}
-	}
+    @RequestMapping(value = "/searchAll", method = RequestMethod.GET)
+    public List<Property> searchAll(int pageNo, int pageSize) {
+        return propertyService.searchAll(pageNo, pageSize);
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public Result edit(@RequestBody Property property) {
+        propertyService.edit(property);
+        return Result.successResult();
+    }
 
 }
