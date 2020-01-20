@@ -63,12 +63,37 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
             long lastUpdateTimestamp = System.currentTimeMillis();
             property.setLastUpdateTimestamp(lastUpdateTimestamp);
             property.setCompanyId(companyId);
+            property.setCode(getFieldCode());
             property.setCanEdit(Const.AdminConst.CAN_EDIT);
 			 propertyMapper.insert(property);
 		} else {
             throw new ServiceException("指标名称重复，添加失败!");
         }
     }
+
+
+    private synchronized String getFieldCode() {
+        // TODO 该方法需要加上同步锁，防止并发问题
+        String maxCode = "";//propertyMapper.queryMaxCode();
+        if (StringUtils.isBlank(maxCode)) {
+            return "A000001";
+        } else {
+            Integer codeInt = Integer.valueOf(maxCode.substring(1));
+            String newCode = String.valueOf(codeInt + 1);
+            return completeCode(newCode);
+        }
+
+    }
+
+    private String completeCode(String code) {
+        StringBuilder codeBuilder = new StringBuilder(code);
+        while (codeBuilder.length() < 6) {
+            codeBuilder.insert(0, "0");
+        }
+        codeBuilder.insert(0, "A");
+        return codeBuilder.toString();
+    }
+
 
     @Override
     public void delete(String id) {
