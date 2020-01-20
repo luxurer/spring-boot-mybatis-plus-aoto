@@ -6,13 +6,10 @@ import com.ltt.demo.common.common.bean.PageBean;
 import com.ltt.demo.common.common.bean.Result;
 import com.ltt.demo.entity.Property;
 import com.ltt.demo.service.PropertyService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +57,8 @@ public class PropertyController {
         return successResult(propertyService.detail(id));
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public Result list(PageBean pageBean,String companyId) {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public Result list(String companyId,PageBean pageBean) {
         List<Property> properties = propertyService.list(pageBean,companyId);
         return successResult(properties,pageBean);
     }

@@ -83,6 +83,6 @@ public class Property extends Model<Property> {
 	 * 所属集团
 	 */
 	@TableField("company_id")
-	@NotEmpty(message = "所属学校不可为空")
+	@NotNull(message = "所属学校不可为空")
 	private String companyId;
 }

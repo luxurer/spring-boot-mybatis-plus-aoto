@@ -7,7 +7,7 @@
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 #----------------------------------------property------------------------------------------------###
 ###
-GET http://localhost:8080/admin/property/queryProperty?pageNo=1&pageSize=10&belong=1
+GET http://localhost:8080/admin/property/list?pageNo=1&pageSize=10&companyId=1
 Accept: application/json
 
 ###--------------------delete--------------
@@ -23,10 +23,9 @@ POST http://localhost:8080/admin/property/list
 Content-Type: application/json
 
 {
-  "pageBean":{
   "pageNo":1,
-  "pageSize":10},
-  "companyId": "1"
+  "pageSize":10,
+  "companyId": "111111"
 }
 
 
@@ -68,6 +67,18 @@ Content-Type: application/json
   "isSearchKey":1
 }
 
+###--------------edit---------------------
+POST http://localhost:8080/admin/property/edit
+Content-Type: application/json
+
+{
+"name": "addreaawdawdawdwawdawdwadawdawdawdwadawdadawdwadwadwadwadwadwass",
+"canEdit": 1,
+"code": "1",
+"orderNum":999,
+"companyId":"1",
+"type": 0
+}
 ###
 GET http://localhost:8080/admin/property/queryDetail?id=11b6f22704f40170f0127de55d12819e
 Accept: application/json
