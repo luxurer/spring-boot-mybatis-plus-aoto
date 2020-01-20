@@ -1,6 +1,7 @@
 package com.ltt.demo.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.ltt.demo.common.common.bean.PageBean;
 import com.ltt.demo.entity.Property;
 import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
@@ -16,7 +17,7 @@ public interface PropertyService extends IService<Property> {
 
 	void add(Property property);
 	void delete(String  id);
-	List<Property> detail(String  name);
+	Property detail(String  id);
 	void edit(Property property);
-	List<Property> searchAll(int pageNo,int pageSize);
+	List<Property> list(PageBean pageBean,String companyId);
 }

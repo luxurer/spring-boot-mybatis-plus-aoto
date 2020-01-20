@@ -56,14 +56,13 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public List<Property> detail(String name) {
-        return propertyService.detail(name);
-
+    public Result detail(String id) {
+        return successResult(propertyService.detail(id));
     }
 
-    @RequestMapping(value = "/searchAll", method = RequestMethod.POST)
-    public Result searchAll(PageBean pageBean) {
-        List<Property> properties = propertyService.searchAll(pageBean.getPageNo(), pageBean.getPageSize());
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public Result list(PageBean pageBean,String companyId) {
+        List<Property> properties = propertyService.list(pageBean,companyId);
         return successResult(properties,pageBean);
     }
 

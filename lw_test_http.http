@@ -14,23 +14,32 @@ Accept: application/json
 GET http://localhost:8080/admin/property/delete?id=4c7b2cd411982974a8d2bc597846c3d0
 Accept: application/json
 
-###--------------------search-------------
+###--------------------detail-------------
 GET http://localhost:8080/admin/property/detail?name=address
 Accept: application/json
 
-###--------------------searchAll-------------
-GET http://localhost:8080/admin/property/searchAll?pageNo=1&pageSize=10
-Accept: application/json
+###--------------------list-------------
+POST http://localhost:8080/admin/property/list
+Content-Type: application/json
 
-###--------------------modify-------------
+{
+  "pageBean":{
+  "pageNo":1,
+  "pageSize":10},
+  "companyId": "1"
+}
+
+
+###--------------------edit-------------
 POST http://localhost:8080/admin/property/edit
 Content-Type: application/json
 
 {
-  "name": "addreaawdawdawdwawdawdwadawdawdawdwadawdadawdwadwadwadwadwadwass",
+  "id": "50f53b3d337a5db32e8d14ebaa3c4d50",
+  "name": "address",
   "canEdit": 1,
   "code": "1",
-  "orderNum":999,
+  "orderNum":9999,
   "companyId":"1",
   "type": 0
 }
@@ -39,7 +48,7 @@ POST http://localhost:8080/admin/property/add
 Content-Type: application/json
 
 {
-  "name": "addreaddreaawdawdawdwawdawdwadawdawdawdwadawdadawdwadwadwadwadwadwassss",
+  "name": "address",
   "canEdit": 1,
   "orderNum":999,
   "companyId":"2343134242414121412412414124124141421412",

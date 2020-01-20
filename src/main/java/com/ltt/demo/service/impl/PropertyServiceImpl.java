@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ltt.demo.common.common.Const;
+import com.ltt.demo.common.common.bean.PageBean;
 import com.ltt.demo.common.common.exception.ServiceException;
 import com.ltt.demo.entity.Property;
 import com.ltt.demo.mapper.PropertyMapper;
@@ -104,12 +105,11 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
         }
     }
     @Override
-    public List<Property> detail(String name) {
-        if (!ObjectUtils.isEmpty(name)) {
+    public Property detail(String id) {
+        if (!ObjectUtils.isEmpty(id)) {
             QueryWrapper<Property> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("name", name);
-            return  propertyMapper.selectList( queryWrapper);
-
+            queryWrapper.eq("id", id);
+            return propertyMapper.selectOne( queryWrapper);
         } else {
             throw new ServiceException("指标不存在，查询失败!");
         }
@@ -118,7 +118,7 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
     public void edit(Property property) {
         if (!ObjectUtils.isEmpty(property)) {
             UpdateWrapper<Property> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.eq("name", property.getName());
+            updateWrapper.eq("id", property.getId());
             propertyMapper.update(property,updateWrapper);
         } else {
             throw new ServiceException("指标不存在，修改失败!");
@@ -126,11 +126,11 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
     }
 
     @Override
-    public List<Property> searchAll(int pageNo, int pageSize) {
-        Integer count = propertyMapper.selectCount(new QueryWrapper<Property>());
-
-              IPage<Property> propertytIPage = new Page<Property>(pageNo, pageSize,count);
-              IPage<Property>  propertyList = propertyMapper.selectPage(propertytIPage,new QueryWrapper<Property>());
+    public List<Property> list(PageBean pageBean,String companyId) {
+              Integer count = propertyMapper.selectCount(new QueryWrapper<Property>().eq("company_id",companyId));
+              IPage<Property> propertytIPage = new Page<Property>(pageBean.getPageNo(), pageBean.getPageSize(),count);
+              IPage<Property>  propertyList = propertyMapper.selectPage(propertytIPage,new QueryWrapper<Property>().eq("company_id",companyId));
+              System.out.println("所属学校"+companyId);
               System.out.println("总页数"+propertyList.getPages());
               System.out.println("总记录数"+propertyList.getTotal());
               List<Property> list = propertyList.getRecords();
