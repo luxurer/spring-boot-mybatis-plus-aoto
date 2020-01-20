@@ -19,4 +19,8 @@
         id, name, code, type, can_edit, order_num, last_update_timestamp, company_id
     </sql>
 
+    <select id="queryMaxCode" resultType="java.lang.String">
+        select MAX(CODE)
+        from t_property
+    </select>
 </mapper>

@@ -75,7 +75,7 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
 
     private synchronized String getFieldCode() {
         // TODO 该方法需要加上同步锁，防止并发问题
-        String maxCode = "";//propertyMapper.queryMaxCode();
+        String maxCode = propertyMapper.queryMaxCode();
         if (StringUtils.isBlank(maxCode)) {
             return "A000001";
         } else {
