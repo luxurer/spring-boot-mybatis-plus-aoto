@@ -11,6 +11,8 @@ import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -40,8 +42,9 @@ public class Property extends Model<Property> {
 	/**
 	 * 属性名称
 	 */
+	@Length(max = 20,message = "属性名称不能超过20个字符")
 	@TableField("name")
-	@NotNull
+	@NotNull(message = "名称不可为空")
 	private String name;
 
 	/**
@@ -54,7 +57,7 @@ public class Property extends Model<Property> {
 	 * 1 文本2数字3日期
 	 */
 	@TableField("type")
-	@NotNull
+	@NotNull(message = "类型不可为空")
 	private Integer type;
 
 	/**
@@ -80,6 +83,6 @@ public class Property extends Model<Property> {
 	 * 所属集团
 	 */
 	@TableField("company_id")
-	@NotEmpty
+	@NotEmpty(message = "所属学校不可为空")
 	private String companyId;
 }

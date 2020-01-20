@@ -27,7 +27,7 @@ POST http://localhost:8080/admin/property/edit
 Content-Type: application/json
 
 {
-  "name": "address",
+  "name": "addreaawdawdawdwawdawdwadawdawdawdwadawdadawdwadwadwadwadwadwass",
   "canEdit": 1,
   "code": "1",
   "orderNum":999,
@@ -39,7 +39,7 @@ POST http://localhost:8080/admin/property/add
 Content-Type: application/json
 
 {
-  "name": "address",
+  "name": "addreaddreaawdawdawdwawdawdwadawdawdawdwadawdadawdwadwadwadwadwadwassss",
   "canEdit": 1,
   "orderNum":999,
   "companyId":"2343134242414121412412414124124141421412",
