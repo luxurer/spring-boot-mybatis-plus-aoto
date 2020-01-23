@@ -3,6 +3,7 @@ package com.ltt.demo.bean;
 public class Attribute {
    private  String name;
    private  String value;
+   private int type;
    void setName(String name){
        this.name=name;
    }
@@ -15,4 +16,10 @@ public class Attribute {
    public String getValue(){
        return value;
    }
+    void setType(int type){
+        this.type=type;
+    }
+    public int getType(){
+        return type;
+    }
 }

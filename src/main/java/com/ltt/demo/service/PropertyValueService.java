@@ -18,7 +18,7 @@ import java.util.List;
 public interface PropertyValueService extends IService<PropertyValue> {
     void add(StudentBean studentBean);
     void delete(String  studentId);
-    //Property detail(String  id);
+    //PropertyValue detail(String  id);
     // void edit(Property property);
     // List<Property> list(PageBean pageBean, String companyId);
 }

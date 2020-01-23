@@ -19,4 +19,8 @@
     <delete id="deleteStudent" parameterType="String">
         delete from t_student where id=#{id}
     </delete>
+    <!--查询学生信息-->
+    <select id="DetailStudent" parameterType="String">
+        select from t_student where id=#{id}
+    </select>
 </mapper>
