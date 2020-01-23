@@ -14,5 +14,8 @@
     <sql id="Base_Column_List">
         id, code, value, student_id
     </sql>
-
+    <!--删除某学生相关信息-->
+    <delete id="deleteStudentValue" parameterType="String">
+        delete from t_student_value where id=#{id}
+    </delete>
 </mapper>

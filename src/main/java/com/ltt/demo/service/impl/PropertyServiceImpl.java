@@ -66,14 +66,14 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
             property.setCompanyId(companyId);
             property.setCode(getFieldCode());
             property.setCanEdit(Const.AdminConst.CAN_EDIT);
-			 propertyMapper.insert(property);
-		} else {
+            propertyMapper.insert(property);
+        } else {
             throw new ServiceException("指标名称重复，添加失败!");
         }
     }
 
 
-    private synchronized String getFieldCode() {
+    private synchronized String getFieldCode() {//生成code
         // TODO 该方法需要加上同步锁，防止并发问题
         String maxCode = propertyMapper.queryMaxCode();
         if (StringUtils.isBlank(maxCode)) {
@@ -89,9 +89,9 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
     private String completeCode(String code) {
         StringBuilder codeBuilder = new StringBuilder(code);
         while (codeBuilder.length() < 6) {
-            codeBuilder.insert(0, "0");
+            codeBuilder.insert(0, "0");//前插0
         }
-        codeBuilder.insert(0, "A");
+        codeBuilder.insert(0, "A");//前插A
         return codeBuilder.toString();
     }
 
@@ -127,8 +127,8 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
 
     @Override
     public List<Property> list(PageBean pageBean,String companyId) {
-              Integer count = propertyMapper.selectCount(new QueryWrapper<Property>().eq("company_id",companyId));
-              IPage<Property> propertytIPage = new Page<Property>(pageBean.getPageNo(), pageBean.getPageSize(),count);
+              pageBean.setTotal((long)propertyMapper.selectCount(new QueryWrapper<Property>().eq("company_id",companyId)));
+              IPage<Property> propertytIPage = new Page<Property>(pageBean.getPageNo(), pageBean.getPageSize(),pageBean.getTotal());
               IPage<Property>  propertyList = propertyMapper.selectPage(propertytIPage,new QueryWrapper<Property>().eq("company_id",companyId));
               System.out.println("所属学校"+companyId);
               System.out.println("总页数"+propertyList.getPages());

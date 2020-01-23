@@ -58,6 +58,23 @@ public class Student extends Model<Student> {
 	@TableField("company_id")
 	private String companyId;
 
+	/**
+	 * 性别
+	 */
+	@TableField("sex")
+	private int sex;
+
+	/**
+	 * 出生日期
+	 */
+	@TableField("birthday")
+	private Long birthday;
+
+	/**
+	 * 出生日期
+	 */
+	@TableField("sno")
+	private String sno;
 
 	@Override
 	protected Serializable pkVal() {
