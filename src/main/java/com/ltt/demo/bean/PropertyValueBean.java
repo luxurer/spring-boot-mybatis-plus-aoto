@@ -1,10 +1,11 @@
 package com.ltt.demo.bean;
 
+
+import com.ltt.demo.entity.PropertyValue;
 import lombok.Data;
 
 @Data
-public class PropertyValueBean {
+public class PropertyValueBean extends PropertyValue {
    private  String name;
-   private  String value;
-   private int type;
+   private  int type;
 }
