@@ -44,11 +44,14 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             return;
         }
         //指标名称不能重复（企业和机构可以同时存在相同的指标名称）
+
         Student oldStudent = studentMapper.selectOne(Wrappers.<Student>lambdaQuery()
                 .eq(Student::getSno, student.getSno())
+                .in(Student::getCompanyId, COMMON_COMPANY_ID, companyId)
         );
 
         if (ObjectUtils.isEmpty(oldStudent)) {
+            System.out.println("in student");
             long lastUpdateTimestamp = System.currentTimeMillis();
             student.setLastUpdateTimestamp(lastUpdateTimestamp);
             student.setCompanyId(companyId);
@@ -57,6 +60,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             student.setBirthday(birthday);
             student.setSno(sno);
             studentMapper.insert(student);
+
         } else {
             throw new ServiceException("该学生已添加，添加失败!");
         }

@@ -15,8 +15,35 @@
     <sql id="Base_Column_List">
         id, name, order_num, last_update_timestamp, company_id
     </sql>
+
     <!--查询学生信息-->
+    <!--<resultMap id="ListStudent" type="com.ltt.demo.bean.StudentBean">
+        <id column="id" property="student.id" />
+        <result column="name" property="student.name" />
+        <result column="order_num" property="student.orderNum" />
+        <result column="last_update_timestamp" property="student.lastUpDateTimestamp" />
+        <result column="order_num" property="student.orderNum" />
+        <result column="name" property="student.name" />
+        <result column="order_num" property="student.orderNum" />
+        <result column="name" property="student.name" />
+        <result column="order_num" property="student.orderNum" />
+
+        <collection property="picUrls" resultMap="picUrls" />
+    </resultMap>
+
+    <select id="findList" resultMap="ListImageTextVO" >
+        SELECT it.* ,tp.pic_url FROM t_image_text it
+        JOIN t_third_pic tp ON tp.third_id = it.id
+   </select>
+
+    <resultMap  id="picUrls" type="String" >
+        <result column="pic_url" property="picUrl"/>
+    </resultMap>
+    <select id="selall"  resultMap="stumap">
+              select * from student
+          </select>
     <select id="DetailStudent" parameterType="String">
         select from t_student where id=#{id}
-    </select>
+
+    </select>-->
 </mapper>

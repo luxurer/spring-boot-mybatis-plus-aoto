@@ -1,11 +1,8 @@
 package com.ltt.demo.service;
 
-import com.ltt.demo.bean.Attribute;
 import com.ltt.demo.bean.StudentBean;
 import com.ltt.demo.entity.PropertyValue;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
  * <p>

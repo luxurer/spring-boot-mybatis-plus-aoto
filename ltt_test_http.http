@@ -107,3 +107,24 @@ Content-Type: application/json
   "belong": 1
 }
 ###
+###--------------add---------------------
+POST http://localhost:8080/admin/student/add
+Content-Type: application/json
+
+{
+"name": "lt",
+"orderNum": 1 ,
+"companyId": "1",
+"sex": 1,
+"sno": "1234567897",
+"birthday": 20000713,
+"list": [{
+  "name": "address",
+  "value": "hgd"
+}]
+}
+###--------------delete---------------------
+GET http://localhost:8080/admin/student/delete?id=c11f00fd00689f42be5a1223dafebd65
+Accept: application/json
+
+###
