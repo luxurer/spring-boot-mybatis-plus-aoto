@@ -1,5 +1,6 @@
 package com.ltt.demo.mapper;
 
+import com.ltt.demo.bean.StudentBean;
 import com.ltt.demo.entity.Student;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -12,5 +13,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2020-01-06
  */
 public interface StudentMapper extends BaseMapper<Student> {
+    String FindStudentList(StudentBean studentBean);
 
 }
