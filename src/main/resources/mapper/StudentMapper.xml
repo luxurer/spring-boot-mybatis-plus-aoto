@@ -27,7 +27,7 @@
         <result column="sex" property="sex" jdbcType="INT"/>
         <result column="sno" property="sno" jdbcType="VARCHAR"/>
         <result column="birthday" property="birthday" jdbcType="BIGINT"/>
-        <collection property="list" resultMap="List" />
+        <collection property="propertyValueBeanList" resultMap="List" />
     </resultMap>
     <resultMap  id="List" type="com.ltt.demo.bean.PropertyValueBean" >
         <result column="code" property="code"/>
