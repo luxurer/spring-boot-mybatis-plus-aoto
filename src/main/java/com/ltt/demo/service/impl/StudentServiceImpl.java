@@ -60,7 +60,6 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             student.setSno(studentBean.getSno());
             studentMapper.insert(student);
 
-
         } else {
             throw new ServiceException("该学生已添加，添加失败!");
         }
