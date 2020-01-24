@@ -7,7 +7,4 @@ public class PropertyValueBean {
    private  String name;
    private  String value;
    private int type;
-   void setName(String name){
-       this.name=name;
-   }
 }
