@@ -19,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ltt.demo.mapper.PropertyValueMapper;
+
 import static com.ltt.demo.common.common.Const.COMMON_COMPANY_ID;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
     private PropertyMapper propertyMapper;
     @Autowired
     private PropertyValueMapper propertyValueMapper;
+
     /***
      * @MethodName add
      * @Description 新增指标
@@ -57,7 +59,7 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
         if (StringUtils.isEmpty(property.getName())) {
             return;
         }
-        //指标名称不能重复（企业和机构可以同时存在相同的指标名称）
+        //指标名称不能重复
         Property oldProperty = propertyMapper.selectOne(Wrappers.<Property>lambdaQuery()
                 .eq(Property::getName, property.getName())
                 .in(Property::getCompanyId, COMMON_COMPANY_ID, companyId)
@@ -103,49 +105,65 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
     public void delete(String id) {
         QueryWrapper<Property> queryWrapper1 = new QueryWrapper<>();
         queryWrapper1.eq("id", id);
-        Property Property=propertyMapper.selectOne(queryWrapper1);
+        Property Property = propertyMapper.selectOne(queryWrapper1);
 
         QueryWrapper<PropertyValue> queryWrapper2 = new QueryWrapper<>();
         queryWrapper2.eq("code", Property.getCode());
-        List<PropertyValue> list=propertyValueMapper.selectList( queryWrapper2);
+        List<PropertyValue> list = propertyValueMapper.selectList(queryWrapper2);
 
-        if (!ObjectUtils.isEmpty(id)&&list.size()==0) {
+        if (!ObjectUtils.isEmpty(id) && list.size() == 0) {
             propertyMapper.deleteById(id);
         } else {
             throw new ServiceException("指标不存在，删除失败!");
         }
     }
+
     @Override
     public Property detail(String id) {
         if (!ObjectUtils.isEmpty(id)) {
             QueryWrapper<Property> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("id", id);
-            return propertyMapper.selectOne( queryWrapper);
+            return propertyMapper.selectOne(queryWrapper);
         } else {
             throw new ServiceException("指标不存在，查询失败!");
         }
     }
+
     @Override
     public void edit(Property property) {
-        if (!ObjectUtils.isEmpty(property)) {
+        if (!ObjectUtils.isEmpty(property.getId())) {
+            //指标名称不能重复
+            Property oldProperty = propertyMapper.selectOne(Wrappers.<Property>lambdaQuery()
+                    .eq(Property::getName, property.getName())
+                    .in(Property::getCompanyId, COMMON_COMPANY_ID, property.getCompanyId())
+            );
+            if (ObjectUtils.isNotEmpty(oldProperty)) {
+                //判断是否未修改
+                if (property.getId().equals(oldProperty.getId())) {
+                    return;
+                } else {
+                    //判断指标名称是否重复
+                    throw new ServiceException("指标名称重复，添加失败!");
+                }
+            }
             UpdateWrapper<Property> updateWrapper = new UpdateWrapper<>();
             updateWrapper.eq("id", property.getId());
-            propertyMapper.update(property,updateWrapper);
+            propertyMapper.update(property, updateWrapper);
         } else {
             throw new ServiceException("指标不存在，修改失败!");
         }
     }
 
     @Override
-    public List<Property> list(PageBean pageBean,String companyId) {
-              pageBean.setTotal((long)propertyMapper.selectCount(new QueryWrapper<Property>().eq("company_id",companyId)));
-              IPage<Property> propertytIPage = new Page<Property>(pageBean.getPageNo(), pageBean.getPageSize(),pageBean.getTotal());
-              IPage<Property>  propertyList = propertyMapper.selectPage(propertytIPage,new QueryWrapper<Property>().eq("company_id",companyId));
-              System.out.println("所属学校"+companyId);
-              System.out.println("总页数"+propertyList.getPages());
-              System.out.println("总记录数"+propertyList.getTotal());
-              List<Property> list = propertyList.getRecords();
-              return list;
-        }
+    public List<Property> list(PageBean pageBean, String companyId) {
+        pageBean.setTotal((long) propertyMapper.selectCount(new QueryWrapper<Property>().eq("company_id", companyId)));
+        IPage<Property> propertytIPage = new Page<Property>(pageBean.getPageNo(), pageBean.getPageSize(), pageBean.getTotal());
+        IPage<Property> propertyList = propertyMapper.selectPage(propertytIPage, new QueryWrapper<Property>().eq("company_id", companyId));
+        System.out.println("所属学校" + companyId);
+        System.out.println("总页数" + propertyList.getPages());
+        System.out.println("总记录数" + propertyList.getTotal());
+        List<Property> list = propertyList.getRecords();
+        return list;
+    }
 
 }
