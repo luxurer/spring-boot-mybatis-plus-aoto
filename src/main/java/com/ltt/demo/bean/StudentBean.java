@@ -8,5 +8,5 @@ import java.util.List;
 
 @Data
 public class StudentBean extends Student{
-   private  List<PropertyValueBean> list=new ArrayList<PropertyValueBean>();
+   private  List<PropertyValueBean> list;
 }
