@@ -52,12 +52,12 @@ public class PropertyValueServiceImpl extends ServiceImpl<PropertyValueMapper, P
 
         for(int i=0;i<num1;i++){      //构造propertyValue
             QueryWrapper<Property> queryWrapper1 = new QueryWrapper<>();
-            queryWrapper1.eq("name", list.get(i).getName()).eq("company_id",studentBean.getCompanyId());
+            queryWrapper1.eq("name", list.get(i).getCode()).eq("company_id",studentBean.getCompanyId());
             property= propertyMapper.selectOne( queryWrapper1);
 
             PropertyValue propertyValue=new PropertyValue();
             propertyValue.setValue(list.get(i).getValue());
-            propertyValue.setCode(property.getCode());
+            propertyValue.setCode(list.get(i).getCode());
             propertyValue.setStudentId(student.getId());
 
 

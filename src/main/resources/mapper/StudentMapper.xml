@@ -30,15 +30,42 @@
         <collection property="list" resultMap="List" />
     </resultMap>
     <resultMap  id="List" type="com.ltt.demo.bean.PropertyValueBean" >
-        <result column="name" property="name"/>
+        <result column="code" property="code"/>
         <result column="value" property="value"/>
         <result column="type" property="type"/>
     </resultMap>
+
     <select id="FindStudentList" resultMap="ListStudent" parameterType="String">
         SELECT it.* ,tp.value as value,ts.name as name,ts.type as type FROM t_student it
         JOIN t_property_value tp ON tp.student_id = it.id
         JOIN t_property_value ts ON tp.code = ts.code where it.id=#{id}
    </select>
 
+   <!-- <insert id="insertStudent"  parameterType="com.ltt.demo.bean.StudentBean">
+           INSERT INTO t_student (name,order_num,last_update_timestamp,company_id,sex,sno,birthday)
+           VALUES(#{name},#{orderNum},#{lastUpdateTimestamp},#{companyId},#{sex},#{sno},#{birthday})
+           SELECT LAST_INSERT_ID()
+
+   </insert>-->
+    <select id="getStudentId">
+         SELECT LAST_INSERT_ID()
+    </select>
+
+    <insert id="addPropertyValue" parameterType="java.util.List">
+        insert into t_property_value
+        (
+       code,
+       value,
+       student_id
+        )
+        values
+        <foreach collection="list" item="item" index= "index" separator =",">
+            (
+            #{item.code},
+            #{item.value},
+            #{item.studentId}
+            )
+        </foreach>
+    </insert>
 
 </mapper>

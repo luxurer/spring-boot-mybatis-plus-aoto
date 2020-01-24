@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.ltt.demo.common.common.Const.COMMON_COMPANY_ID;
 
@@ -32,6 +33,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     private StudentMapper studentMapper;
 
     @Override
+    @Transactional
     public void add(StudentBean studentBean) {
         // TODO 长度判断可以使用@Length注解
         if (studentBean.getName().length() > 20) {
@@ -57,6 +59,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             student.setBirthday(studentBean.getBirthday());
             student.setSno(studentBean.getSno());
             studentMapper.insert(student);
+
 
         } else {
             throw new ServiceException("该学生已添加，添加失败!");
