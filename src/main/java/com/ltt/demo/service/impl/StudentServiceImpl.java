@@ -1,7 +1,9 @@
 package com.ltt.demo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.ltt.demo.bean.StudentBean;
 import com.ltt.demo.common.common.Const;
 import com.ltt.demo.common.common.exception.ServiceException;
 import com.ltt.demo.entity.Property;
@@ -30,35 +32,30 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     private StudentMapper studentMapper;
 
     @Override
-    public void add(Student student) {
-        String companyId = student.getCompanyId();
-        int sex=student.getSex();
-        Long birthday =student.getBirthday();
-        String sno=student.getSno();
+    public void add(StudentBean studentBean) {
         // TODO 长度判断可以使用@Length注解
-        if (student.getName().length() > 20) {
+        if (studentBean.getName().length() > 20) {
             throw new ServiceException("名字不能大于20个字!");
         }
         //学生名字为空则不入库
-        if (StringUtils.isEmpty(student.getName())) {
+        if (StringUtils.isEmpty(studentBean.getName())) {
             return;
         }
         //指标名称不能重复（企业和机构可以同时存在相同的指标名称）
 
         Student oldStudent = studentMapper.selectOne(Wrappers.<Student>lambdaQuery()
-                .eq(Student::getSno, student.getSno())
-                .in(Student::getCompanyId, COMMON_COMPANY_ID, companyId)
+                .eq(Student::getSno, studentBean.getSno())
         );
 
+        Student student=new Student();
         if (ObjectUtils.isEmpty(oldStudent)) {
-            System.out.println("in student");
             long lastUpdateTimestamp = System.currentTimeMillis();
             student.setLastUpdateTimestamp(lastUpdateTimestamp);
-            student.setCompanyId(companyId);
-            student.setSex(sex);
+            student.setCompanyId(studentBean.getCompanyId());
+            student.setSex(studentBean.getSex());
             student.setOrderNum(1);
-            student.setBirthday(birthday);
-            student.setSno(sno);
+            student.setBirthday(studentBean.getBirthday());
+            student.setSno(studentBean.getSno());
             studentMapper.insert(student);
 
         } else {
@@ -74,5 +71,15 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
                 throw new ServiceException("学生信息不存在，删除失败!");
             }
         }
+
+    @Override
+    public Student detail(String id) {
+        if (!ObjectUtils.isEmpty(id)) {
+
+            return null;
+        } else {
+            throw new ServiceException("指标不存在，查询失败!");
+        }
+    }
 
 }

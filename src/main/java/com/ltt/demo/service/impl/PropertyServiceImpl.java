@@ -10,13 +10,15 @@ import com.ltt.demo.common.common.Const;
 import com.ltt.demo.common.common.bean.PageBean;
 import com.ltt.demo.common.common.exception.ServiceException;
 import com.ltt.demo.entity.Property;
+import com.ltt.demo.entity.PropertyValue;
 import com.ltt.demo.mapper.PropertyMapper;
+import com.ltt.demo.mapper.PropertyValueMapper;
 import com.ltt.demo.service.PropertyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.ltt.demo.mapper.PropertyValueMapper;
 import static com.ltt.demo.common.common.Const.COMMON_COMPANY_ID;
 
 import java.util.List;
@@ -34,7 +36,8 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
 
     @Autowired
     private PropertyMapper propertyMapper;
-
+    @Autowired
+    private PropertyValueMapper propertyValueMapper;
     /***
      * @MethodName add
      * @Description 新增指标
@@ -98,7 +101,15 @@ public class PropertyServiceImpl extends ServiceImpl<PropertyMapper, Property> i
 
     @Override
     public void delete(String id) {
-        if (!ObjectUtils.isEmpty(id)) {
+        QueryWrapper<Property> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("id", id);
+        Property Property=propertyMapper.selectOne(queryWrapper1);
+
+        QueryWrapper<PropertyValue> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("code", Property.getCode());
+        List<PropertyValue> list=propertyValueMapper.selectList( queryWrapper2);
+
+        if (!ObjectUtils.isEmpty(id)&&list.size()==0) {
             propertyMapper.deleteById(id);
         } else {
             throw new ServiceException("指标不存在，删除失败!");

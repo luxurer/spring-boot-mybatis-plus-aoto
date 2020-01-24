@@ -1,5 +1,6 @@
 package com.ltt.demo.service;
 
+import com.ltt.demo.bean.StudentBean;
 import com.ltt.demo.entity.Student;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,9 +14,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface StudentService extends IService<Student> {
 
-    void add(Student student);
+    void add(StudentBean studentbean);
     void delete(String  id);
-   // Student  detail(String  id);
+    Student  detail(String  id);
    // void edit(Property property);
    // List<Property> list(PageBean pageBean, String companyId);
 }

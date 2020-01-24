@@ -17,33 +17,28 @@
     </sql>
 
     <!--查询学生信息-->
-    <!--<resultMap id="ListStudent" type="com.ltt.demo.bean.StudentBean">
-        <id column="id" property="student.id" />
-        <result column="name" property="student.name" />
-        <result column="order_num" property="student.orderNum" />
-        <result column="last_update_timestamp" property="student.lastUpDateTimestamp" />
-        <result column="order_num" property="student.orderNum" />
-        <result column="name" property="student.name" />
-        <result column="order_num" property="student.orderNum" />
-        <result column="name" property="student.name" />
-        <result column="order_num" property="student.orderNum" />
-
-        <collection property="picUrls" resultMap="picUrls" />
+    <resultMap id="ListStudent" type="com.ltt.demo.bean.StudentBean">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="id" property="id" />
+        <result column="name" property="name"  jdbcType="VARCHAR"/>
+        <result column="order_num" property="orderNum"  jdbcType="INT"/>
+        <result column="last_update_timestamp" property="lastUpdateTimestamp" jdbcType="BIGINT"/>
+        <result column="company_id" property="companyId" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="INT"/>
+        <result column="sno" property="sno" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="BIGINT"/>
+        <collection property="list" resultMap="List" />
     </resultMap>
-
-    <select id="findList" resultMap="ListImageTextVO" >
-        SELECT it.* ,tp.pic_url FROM t_image_text it
-        JOIN t_third_pic tp ON tp.third_id = it.id
+    <resultMap  id="List" type="com.ltt.demo.bean.PropertyValueBean" >
+        <result column="name" property="name"/>
+        <result column="value" property="value"/>
+        <result column="type" property="type"/>
+    </resultMap>
+    <select id="FindStudentList" resultMap="ListStudent" parameterType="String">
+        SELECT it.* ,tp.value as value,ts.name as name,ts.type as type FROM t_student it
+        JOIN t_property_value tp ON tp.student_id = it.id
+        JOIN t_property_value ts ON tp.code = ts.code where it.id=#{id}
    </select>
 
-    <resultMap  id="picUrls" type="String" >
-        <result column="pic_url" property="picUrl"/>
-    </resultMap>
-    <select id="selall"  resultMap="stumap">
-              select * from student
-          </select>
-    <select id="DetailStudent" parameterType="String">
-        select from t_student where id=#{id}
 
-    </select>-->
 </mapper>

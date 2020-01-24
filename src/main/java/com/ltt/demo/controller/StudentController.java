@@ -1,6 +1,7 @@
 package com.ltt.demo.controller;
 
 
+import com.ltt.demo.bean.PropertyValueBean;
 import com.ltt.demo.bean.StudentBean;
 import com.ltt.demo.common.common.bean.Result;
 import com.ltt.demo.entity.Student;
@@ -26,6 +27,7 @@ import static com.ltt.demo.common.common.bean.Result.successResult;
 @RestController
 @RequestMapping("/admin/student")
 public class StudentController {
+
     @Autowired
     private StudentService studentService;
     @Autowired
@@ -40,16 +42,7 @@ public class StudentController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result add(@RequestBody StudentBean studentBean) {
-        Student student=new Student();
-        student.setId(studentBean.getId());
-        student.setName(studentBean.getName());
-        student.setBirthday(studentBean.getBirthday());
-        student.setSex(studentBean.getSex());
-        student.setCompanyId(studentBean.getCompanyId());
-        student.setSno(studentBean.getSno());
-        student.setOrderNum(studentBean.getOrderNum());
-        student.setLastUpdateTimestamp(studentBean.getLastUpdateTimestamp());
-        studentService.add(student);
+        studentService.add(studentBean);
         propertyValueService.add(studentBean);
         return successResult();
     }
