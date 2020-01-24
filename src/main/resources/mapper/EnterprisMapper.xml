@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdja.eidm.admin.dao.EnterprisMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xdja.eidm.admin.domain.Enterpris">
+        <id column="c_id" property="id"/>
+        <result column="c_name" property="name"/>
+        <result column="c_address" property="address"/>
+        <result column="n_lng" property="lng"/>
+        <result column="n_lat" property="lat"/>
+        <result column="c_industry" property="industry"/>
+        <result column="n_order_num" property="orderNum"/>
+        <result column="n_last_update_timestamp" property="lastUpdateTimestamp"/>
+        <result column="c_company_id" property="companyId"/>
+    </resultMap>
+
+    <resultMap id="EnterprisBean" type="com.xdja.eidm.admin.bean.EnterprisBean">
+        <id column="c_id" property="id"/>
+        <result column="c_name" property="name"/>
+        <result column="c_address" property="address"/>
+        <result column="n_lng" property="lng"/>
+        <result column="n_lat" property="lat"/>
+        <result column="c_industry" property="industry"/>
+        <result column="n_order_num" property="orderNum"/>
+        <result column="n_last_update_timestamp" property="lastUpdateTimestamp"/>
+        <result column="c_company_id" property="companyId"/>
+        <association property="industryInfo" javaType="com.xdja.eidm.admin.domain.Industry">
+            <id column="c_industry" property="id"/>
+            <result column="industry_id" property="id"/>
+            <result column="industry_name" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="queryEnterprisList" resultMap="EnterprisBean" parameterType="com.xdja.eidm.admin.bean.SearchBean">
+        select e.*, i.c_id as industry_id, i.c_name as industry_name
+        from t_eidm_enterpris e
+        left join t_eidm_industry i on e.c_industry = i.c_id
+        where i.n_belong = 1
+        <include refid="commonQuery"/>
+    </select>
+
+
+    <select id="queryIndustryCount" resultType="java.lang.Long">
+        select count(1) from (
+        select distinct i.c_id
+        from t_eidm_enterpris e
+        left join t_eidm_industry i on e.c_industry = i.c_id
+        where i.n_belong = 1
+        <include refid="commonQuery"/>
+        ) aaa
+    </select>
+
+
+    <resultMap id="EnterprisBeanDetail" type="com.xdja.eidm.admin.bean.EnterprisBean">
+        <id column="c_id" property="id"/>
+        <result column="c_name" property="name"/>
+        <result column="c_address" property="address"/>
+        <result column="n_lng" property="lng"/>
+        <result column="n_lat" property="lat"/>
+        <result column="c_industry" property="industry"/>
+        <result column="n_order_num" property="orderNum"/>
+        <result column="n_last_update_timestamp" property="lastUpdateTimestamp"/>
+        <result column="c_company_id" property="companyId"/>
+        <association property="industryInfo" javaType="com.xdja.eidm.admin.domain.Industry">
+            <id column="c_industry" property="id"/>
+            <result column="industry_id" property="id"/>
+            <result column="industry_name" property="name"/>
+        </association>
+        <collection property="propertyList" ofType="com.xdja.eidm.admin.bean.PropertyBean" column="enterprisId=c_id" select="queryPropertyList"/>
+    </resultMap>
+
+    <select id="queryEnterprisListDetail" resultMap="EnterprisBeanDetail" parameterType="com.xdja.eidm.admin.bean.SearchBean">
+        select e.*, i.c_id as industry_id, i.c_name as industry_name
+        from t_eidm_enterpris e
+        left join t_eidm_industry i on e.c_industry = i.c_id
+        where i.n_belong = 1
+        <include refid="commonQuery"/>
+    </select>
+
+    <!-- 查询企业详情 -->
+    <select id="queryEnterprisDetail" resultMap="EnterprisBeanDetail">
+        select e.*, i.c_id as industry_id, i.c_name as industry_name
+        from t_eidm_enterpris e
+        left join t_eidm_industry i on e.c_industry = i.c_id
+        where i.n_belong = 1
+        <if test="id != null">
+            and e.c_id=#{id}
+        </if>
+        <if test="companyId != null">
+            and e.c_company_id=#{companyId}
+        </if>
+    </select>
+
+
+    <sql id="commonQuery">
+        and e.c_company_id = #{companyId}
+        <!--根据关键字查询 -->
+        <if test="searchBean.searchKey != null and searchBean.searchKey != ''">
+            <choose>
+                <when test="propertyList != null and propertyList.size > 0">
+                    and e.c_id in ( select c_enterpris_id from t_eidm_property_value epv left join t_eidm_industry ei on epv.`c_value` = ei.`c_id` where
+                    <foreach collection="propertyList" item="property" index="index" separator="or" open="(" close=")">
+                        <choose>
+                            <!--行业要通过ID转为name进行模糊查询 -->
+                            <when test="property.code == 'A000002'">
+                                (epv.c_code = #{property.code} and ei.c_name like concat('%',#{searchBean.searchKey},'%') ESCAPE '/')
+                            </when>
+                            <otherwise>
+                                (epv.c_code = #{property.code} and epv.c_value like concat('%',#{searchBean.searchKey},'%') ESCAPE '/')
+                            </otherwise>
+                        </choose>
+                    </foreach>
+                    )
+                </when>
+                <otherwise>
+                    and (e.c_name like concat('%',#{searchBean.searchKey},'%') ESCAPE '/' or e.c_address like concat('%',#{searchBean.searchKey},'%') ESCAPE '/')
+                </otherwise>
+            </choose>
+        </if>
+        <!--高级筛选 -->
+        <if test="searchBean.highSearch != null">
+            <!--根据行业列表查询 -->
+            <if test="searchBean.highSearch.industryList != null and searchBean.highSearch.industryList.size > 0">
+                and e.c_industry in
+                <foreach collection="searchBean.highSearch.industryList" item="industryId" index="index" open="(" separator="," close=")">
+                    #{industryId}
+                </foreach>
+            </if>
+            <!--根据指标列表查询 -->
+            <if test="searchBean.highSearch.searchList != null and searchBean.highSearch.searchList.size > 0">
+                and e.c_id in (select a0.c_enterpris_id from
+                <foreach collection="searchBean.highSearch.searchList" item="search" index="index">
+                    <if test="search.value != null">
+                        <choose>
+                            <when test="index == 0">
+                                <include refid="highSearchSql"/>
+                            </when>
+                            <otherwise>
+                                inner join <include refid="highSearchSql"/> on a${index}.c_enterpris_id = a${index-1}.c_enterpris_id
+                            </otherwise>
+                        </choose>
+                    </if>
+                </foreach>
+                )
+            </if>
+        </if>
+        order by e.n_order_num,e.n_last_update_timestamp desc
+    </sql>
+
+    <sql id="highSearchSql">
+        (select c_enterpris_id from t_eidm_property_value where c_code = #{search.code}
+        <choose>
+            <when test="search.type == 1">
+                and c_value like concat('%',#{search.value},'%') ESCAPE '/'
+            </when>
+            <when test="search.type == 2">
+                <if test="search.value.start != null and search.value.start != ''">
+                    and c_value &gt;= #{search.value.start}+0 and c_value is not null and c_value != ''
+                </if>
+                <if test="search.value.end != null and search.value.end != ''">
+                    and c_value &lt;= #{search.value.end}+0 and c_value is not null and c_value != ''
+                </if>
+            </when>
+            <otherwise>
+                <if test="search.value.start != null and search.value.start != ''">
+                    and UNIX_TIMESTAMP(STR_TO_DATE(c_value,'%Y-%m-%d')) &gt;= UNIX_TIMESTAMP(STR_TO_DATE(#{search.value.start},'%Y-%m-%d'))
+                </if>
+                <if test="search.value.end != null and search.value.end != ''">
+                    and UNIX_TIMESTAMP(STR_TO_DATE(c_value,'%Y-%m-%d')) &lt;= UNIX_TIMESTAMP(STR_TO_DATE(#{search.value.end},'%Y-%m-%d'))
+                </if>
+            </otherwise>
+        </choose>
+        ) a${index}
+    </sql>
+
+    <resultMap id="PropertyBean" type="com.xdja.eidm.admin.bean.PropertyBean">
+        <result column="c_code" property="code"/>
+        <result column="c_name" property="name"/>
+        <result column="c_value" property="value"/>
+        <result column="n_type" property="type"/>
+    </resultMap>
+
+    <select id="queryPropertyList" resultMap="PropertyBean">
+        select pv.`c_code`, pv.`c_value`, p.`c_name`, p.n_type
+        from t_eidm_property_value pv
+                 join t_eidm_property p on pv.c_code = p.c_code
+        where pv.c_enterpris_id = #{enterprisId}
+          and p.n_belong = 1
+        order by p.n_can_edit, p.n_order_num, p.c_code
+    </select>
+
+    <resultMap id="EnterprisBeanDetailAll" type="com.xdja.eidm.admin.bean.EnterprisBean">
+        <id column="c_id" property="id"/>
+        <result column="c_name" property="name"/>
+        <result column="c_address" property="address"/>
+        <result column="n_lng" property="lng"/>
+        <result column="n_lat" property="lat"/>
+        <result column="c_industry" property="industry"/>
+        <result column="n_order_num" property="orderNum"/>
+        <result column="n_last_update_timestamp" property="lastUpdateTimestamp"/>
+        <result column="c_company_id" property="companyId"/>
+        <association property="industryInfo" javaType="com.xdja.eidm.admin.domain.Industry">
+            <id column="c_industry" property="id"/>
+            <result column="industry_id" property="id"/>
+            <result column="industry_name" property="name"/>
+        </association>
+        <collection property="propertyList" ofType="com.xdja.eidm.admin.bean.PropertyBean">
+            <result column="c_property_code" property="code"/>
+            <result column="c_property_name" property="name"/>
+            <result column="c_property_value" property="value"/>
+            <result column="n_property_type" property="type"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryAllListDetail" resultMap="EnterprisBeanDetailAll">
+        select e.*, i.c_id as industry_id, i.c_name as industry_name,
+               tepv.c_code as c_property_code,p.c_name as c_property_name,
+               tepv.c_value as c_property_value,p.n_type as n_property_type
+        from t_eidm_enterpris e
+        left join t_eidm_industry i on e.c_industry = i.c_id
+        left join t_eidm_property_value tepv on e.c_id = tepv.c_enterpris_id
+        left join t_eidm_property p on tepv.c_code = p.c_code
+        where i.n_belong = 1
+        <include refid="commonQuery"/>
+    </select>
+
+</mapper>
