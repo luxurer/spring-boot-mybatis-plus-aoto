@@ -17,7 +17,7 @@
     </sql>
 
     <!--查询学生信息-->
-    <resultMap id="ListStudent" type="com.ltt.demo.bean.StudentBean">
+    <resultMap id="StudentBean" type="com.ltt.demo.bean.StudentBean">
         <id column="id" property="id" jdbcType="VARCHAR"/>
         <result column="id" property="id" />
         <result column="name" property="name"  jdbcType="VARCHAR"/>
@@ -35,7 +35,7 @@
         <result column="type" property="type"/>
     </resultMap>
 
-    <select id="FindStudentList" resultMap="ListStudent" parameterType="String">
+    <select id="FindStudentList" resultMap="StudentBean" parameterType="String">
         SELECT it.* ,tp.value as value,ts.name as name,ts.type as type FROM t_student it
         JOIN t_property_value tp ON tp.student_id = it.id
         JOIN t_property_value ts ON tp.code = ts.code where it.id=#{id}
