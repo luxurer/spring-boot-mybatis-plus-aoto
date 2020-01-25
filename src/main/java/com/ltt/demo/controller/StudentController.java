@@ -43,7 +43,7 @@ public class StudentController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result add(@RequestBody StudentBean studentBean) {
         studentService.add(studentBean);
-        propertyValueService.add(studentBean);
+      /*  propertyValueService.add(studentBean);*/
         return successResult();
     }
 }

@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-01-06
  */
 public interface PropertyValueService extends IService<PropertyValue> {
-    void add(StudentBean studentBean);
+   /* void add(StudentBean studentBean);*/
     void delete(String  studentId);
     //PropertyValue detail(String  id);
     // void edit(Property property);

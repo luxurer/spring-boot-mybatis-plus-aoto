@@ -112,16 +112,22 @@ POST http://localhost:8080/admin/student/add
 Content-Type: application/json
 
 {
-"name": "lt",
-"orderNum": 1 ,
+"orderNum": 1,
+"name": "lt" ,
 "companyId": "1",
 "sex": 1,
-"sno": "1234567897",
+"sno": "1234567891",
 "birthday": 20000713,
-"list": [{
-  "name": "address",
-  "value": "hgd"
-}]
+"propertyValueBeanList": [{
+  "code": "1",
+  "value": "hgd",
+  "type": 1
+},
+  {
+    "code": "0",
+    "value": "hgd",
+    "type": 1
+  }]
 }
 ###--------------delete---------------------
 GET http://localhost:8080/admin/student/delete?id=c11f00fd00689f42be5a1223dafebd65

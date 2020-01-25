@@ -3,7 +3,7 @@
 <mapper namespace="com.xdja.eidm.admin.dao.EnterprisMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.xdja.eidm.admin.domain.Enterpris">
+   <!-- <resultMap id="BaseResultMap" type="com.xdja.eidm.admin.domain.Enterpris">
         <id column="c_id" property="id"/>
         <result column="c_name" property="name"/>
         <result column="c_address" property="address"/>
@@ -78,7 +78,7 @@
         <include refid="commonQuery"/>
     </select>
 
-    <!-- 查询企业详情 -->
+    &lt;!&ndash; 查询企业详情 &ndash;&gt;
     <select id="queryEnterprisDetail" resultMap="EnterprisBeanDetail">
         select e.*, i.c_id as industry_id, i.c_name as industry_name
         from t_eidm_enterpris e
@@ -95,14 +95,14 @@
 
     <sql id="commonQuery">
         and e.c_company_id = #{companyId}
-        <!--根据关键字查询 -->
+        &lt;!&ndash;根据关键字查询 &ndash;&gt;
         <if test="searchBean.searchKey != null and searchBean.searchKey != ''">
             <choose>
                 <when test="propertyList != null and propertyList.size > 0">
                     and e.c_id in ( select c_enterpris_id from t_eidm_property_value epv left join t_eidm_industry ei on epv.`c_value` = ei.`c_id` where
                     <foreach collection="propertyList" item="property" index="index" separator="or" open="(" close=")">
                         <choose>
-                            <!--行业要通过ID转为name进行模糊查询 -->
+                            &lt;!&ndash;行业要通过ID转为name进行模糊查询 &ndash;&gt;
                             <when test="property.code == 'A000002'">
                                 (epv.c_code = #{property.code} and ei.c_name like concat('%',#{searchBean.searchKey},'%') ESCAPE '/')
                             </when>
@@ -118,16 +118,16 @@
                 </otherwise>
             </choose>
         </if>
-        <!--高级筛选 -->
+        &lt;!&ndash;高级筛选 &ndash;&gt;
         <if test="searchBean.highSearch != null">
-            <!--根据行业列表查询 -->
+            &lt;!&ndash;根据行业列表查询 &ndash;&gt;
             <if test="searchBean.highSearch.industryList != null and searchBean.highSearch.industryList.size > 0">
                 and e.c_industry in
                 <foreach collection="searchBean.highSearch.industryList" item="industryId" index="index" open="(" separator="," close=")">
                     #{industryId}
                 </foreach>
             </if>
-            <!--根据指标列表查询 -->
+            &lt;!&ndash;根据指标列表查询 &ndash;&gt;
             <if test="searchBean.highSearch.searchList != null and searchBean.highSearch.searchList.size > 0">
                 and e.c_id in (select a0.c_enterpris_id from
                 <foreach collection="searchBean.highSearch.searchList" item="search" index="index">
@@ -224,5 +224,5 @@
         where i.n_belong = 1
         <include refid="commonQuery"/>
     </select>
-
+-->
 </mapper>

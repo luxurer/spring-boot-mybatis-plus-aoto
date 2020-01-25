@@ -41,10 +41,10 @@ public class PropertyValueServiceImpl extends ServiceImpl<PropertyValueMapper, P
     private Student student;
 
 
-    @Override
+  /*  @Override
     public void add(StudentBean studentBean) {
 
-        List<PropertyValueBean> list=studentBean.getList();
+        List<PropertyValueBean> list=studentBean.getPropertyValueBeanList();
         int num1=list.size();//属性个数
 
         QueryWrapper<Student> queryWrapper2 = new QueryWrapper<>();
@@ -78,7 +78,7 @@ public class PropertyValueServiceImpl extends ServiceImpl<PropertyValueMapper, P
             }
         }
     }
-
+*/
     @Override
     public void delete(String studentId) {
         if (!ObjectUtils.isEmpty(studentId)) {

@@ -8,6 +8,9 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * @author KLM
+ */
 @SpringBootApplication
 @MapperScan("com.ltt.demo.mapper")
 @ComponentScan("com.ltt")
@@ -17,7 +20,6 @@ public class MybatisplusApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(MybatisplusApplication.class, args);
     }
-
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(MybatisplusApplication.class);
