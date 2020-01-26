@@ -35,6 +35,7 @@ public class StudentController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public Result add(String id) {
+        //TODO 删除不能分两个函数写，假如删除学生表成功了，删动态表失败了，就会错乱，而且要用事务
         studentService.delete(id);
         propertyValueService.delete(id);
         return successResult();
@@ -42,6 +43,7 @@ public class StudentController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result add(@RequestBody StudentBean studentBean) {
+        //TODO 在前端传参数的时候用Validated校验，在逻辑层就不用校验了，参考Property.java
         studentService.add(studentBean);
       /*  propertyValueService.add(studentBean);*/
         return successResult();

@@ -48,9 +48,9 @@
 
     </insert>-->
      <insert id="addStudent" parameterType="com.ltt.demo.entity.Student" useGeneratedKeys="true" keyProperty="id">
-         <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+         <!--<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
              select replace(uuid(),"-","")
-         </selectKey>
+         </selectKey>-->
       insert into t_student(id,name,order_num,last_update_timestamp,company_id,sex,sno,birthday)
       values(#{id},#{name}, #{orderNum}, #{lastUpdateTimestamp}, #{companyId}, #{sex}, #{sno}, #{birthday})
      </insert>
