@@ -42,7 +42,7 @@
         <lombok.version>1.16.20</lombok.version>
         <healthCheck.version>1.2.1</healthCheck.version>
         <jboss-logging.version>3.3.2.Final</jboss-logging.version>
-        <jackson.version>2.9.6</jackson.version>
+        <jackson.version>2.10.3</jackson.version>
         <jackson-core-asl.version>1.9.13</jackson-core-asl.version>
        <!-- <classmate.version>1.3.4</classmate.version>-->
         <kryo.version>2.24.0</kryo.version>
