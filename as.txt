@@ -1,0 +1,47 @@
+试卷A
+选择：
+1-5：AADBA              6-10：CBCDD        11-15：DBAAD
+填空：
+1.	jmap -heap pid
+2.	-Xmx
+3.	异步、解耦、削峰
+4.	flushdb flusdall
+5.	数字签名
+判断（√或者×）：
+1-5：×√√√ √           6-10：×√×√√
+简答：
+1.
+第一步，将源代码基础上调整目录结构，按照不同环境进行区分，接着按照K8S编排文件模板编写编排文件和Dockerfile文件。业务系统中添加tomcat.yaml，配置要监控的服务和接口，以便于对应Prometheus监控。修改logback.xml输出到控制台，以便于对接日志收集服务。
+第二步，集成到Jenkins。复制K8S的模板Jenkins任务，修改SVN地址，仓库地址，Tag版本号，修改要上传到K8S服务器的程序文件、编排文件。
+2.
+消息持久化，使用持久化队列，发送的消息都设置为持久化，保证消息持久化存储。
+生产者确认模式，生产者开启声明事务或者使用confirm模式。
+ACK确认机制，消费者消息消息时，使用ACK方式，出现异常使用NACK回滚。
+消息补偿机制，发送消息时候，进行重试，以便消息能够100%投递给MQ服务端。
+RabbitMQ集群选择使用镜像模式，使用镜像模式能够保证多个节点之间数据同步。
+
+3.
+free –g 查看系统可用内存
+top命令观察到问题：内存不断增长，按照内存进行排序，找到占用内存高的服务
+jmap –heap pid
+jstat -gc 动态观察gc情况/阅读GC日志发现频繁GC/arthas观察/jconsole/jvisualVM
+例如jstat -gc 1 500 : 每个500个毫秒打印GC的情况
+jmap -histo 4655 | head -20，查找有多少对象产生
+jmap -dump:format=b,file=/tmp/dump.hprof pid
+使用MAT/jhat/jvisualvm 进行dump文件分析
+4.
+MySQL慢查询分析：
+开启漫查询日志记录开关set global slow_query_log=1
+设置慢查询时间，即超过该时间记录为慢查询set long_query_time=1
+在慢查询日志文件中（可以通过slow_query_log_file获取慢查询日志文件路径）执行的SQL，这样就知道了慢查询SQL，然后使用explain再对SQL进行分析原因。
+Oracle慢查询分析：
+可以通过DBA账户查询慢查询SQL，然后再使用explain plan执行计划分析SQL。
+也可以使用生成指定时间段内的AWR报告，从报告中获取慢查询SQL，再分析原因。
+Redis慢查询分析：
+设置慢查询时间CONFIG SET slowlog-log-slower-than 10000，查询耗时超过该时间的查询记录。
+CONFIG SET slowlog-max-len 1000设置保存多少条慢查询记录。
+通过使用slowlog get或者slowlog get NUMBER查询记录到慢查询的记录
+
+MySQl、Oracle慢查询分析也可以借助Druid数据库连接池提供的监控组件进行分析。
+
+

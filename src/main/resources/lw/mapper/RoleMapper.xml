@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="entity.Role">
+        <id column="C_ID" property="id" />
+        <result column="C_NAME" property="name" />
+        <result column="N_CAN_EDIT" property="canEdit" />
+        <result column="N_BELONG" property="belong" />
+        <result column="N_CREATE_TIMESTAMP" property="createTimestamp" />
+        <result column="N_UPDATE_TIMESTAMP" property="updateTimestamp" />
+        <result column="C_BELONG_DEPT_ID" property="belongDeptId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        C_ID, C_NAME, N_CAN_EDIT, N_BELONG, N_CREATE_TIMESTAMP, N_UPDATE_TIMESTAMP, C_BELONG_DEPT_ID
+    </sql>
+
+</mapper>

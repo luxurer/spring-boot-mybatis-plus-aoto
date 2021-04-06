@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ltt.demo.mapper.TrainDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ltt.demo.entity.TrainDetail">
+        <id column="C_ID" property="id" />
+        <result column="C_STATION_NAME" property="stationName" />
+        <result column="C_ARRIVAL_TIME" property="arrivalTime" />
+        <result column="C_DEPARTURE_TIME" property="departureTime" />
+        <result column="C_TRAIN_ID" property="trainId" />
+        <result column="N_ORDER_NUM" property="orderNum" />
+        <result column="N_DAYS" property="days" />
+        <result column="C_DEPT_CODE" property="deptCode" />
+        <result column="N_CAN_HANDOVER" property="canHandover" />
+        <result column="C_TEL" property="tel" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        C_ID, C_STATION_NAME, C_ARRIVAL_TIME, C_DEPARTURE_TIME, C_TRAIN_ID, N_ORDER_NUM, N_DAYS, C_DEPT_CODE, N_CAN_HANDOVER, C_TEL
+    </sql>
+
+</mapper>
